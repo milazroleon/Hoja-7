@@ -67,8 +67,9 @@ class MyPolicy(Policy):
 
         for s in self._states:
             if s[1] == "G" or s[1] == "⊥":
+                d[s] = 0
                 queue.append(s)
-
+            
         while queue:
             s_next = queue.popleft()
             for s in self._states:
@@ -87,8 +88,18 @@ class MyPolicy(Policy):
             best_d = math.inf
             for a in self.mdp.actions(s):
                 s_next = self._most_likely_successor(s, a)
-                if d[s_next] < best_d or (d[s_next] == best_d and (best_a is None or self.tie_break.index(a) < self.tie_break.index(best_a))):
-                    best_d = d[s_next]
+
+                if s_next[1] == "H":
+                    candidate_d = math.inf
+                else:
+                    candidate_d = d[s_next]
+
+                if candidate_d < best_d or (
+                    candidate_d == best_d
+                    and (best_a is None or self.tie_break.index(a) < self.tie_break.index(best_a))
+                ):
+                    best_d = candidate_d
                     best_a = a
+
             if best_a is not None:
                 self._policy[s] = best_a
