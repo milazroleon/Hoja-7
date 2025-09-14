@@ -47,7 +47,7 @@ def run(
     state_idx = {s: i for i, s in enumerate(states)}
     S = len(states)
 
-    P, r = build_policy_Pr(mdp, pi, states, state_idx)
+    P, r = build_policy_Pr(mdp, pi, states)
 
     if method == "exact":
         v = exact_policy_evaluation(P, r, gamma)
