@@ -61,6 +61,7 @@ def run(
 
     print(f"Fitness of constructed policy: f^π̂ = v^π̂(s₀) = {f_pi:.6f}")
 
-    plot_policy(mdp, pi)
+    plot_policy(pi) 
 
     return pi, v, f_pi
+
