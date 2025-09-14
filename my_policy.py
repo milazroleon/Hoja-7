@@ -66,8 +66,7 @@ class MyPolicy(Policy):
         queue = deque()
 
         for s in self._states:
-            if self.mdp.is_goal(s) or self.mdp.is_absorbing(s):
-                d[s] = 0
+            if s[1] == "G" or s[1] == "⊥":
                 queue.append(s)
 
         while queue:
